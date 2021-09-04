@@ -1,6 +1,7 @@
 package info.steven.wk01hw02;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -18,9 +19,14 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
+    public void factoryPattern() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("info.steven.wk01hw02", appContext.getPackageName());
+
+        Intent intent = LoginActivity.getIntent(appContext.getApplicationContext(), "username", 1);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(intent);
+        assertEquals(1, intent.getIntExtra("userId", -1));
     }
 }
